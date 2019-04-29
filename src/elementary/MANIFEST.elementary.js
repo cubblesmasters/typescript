@@ -4,6 +4,12 @@ module.exports = (webpackageName) => {
   assert.ok(webpackageName, 'Expected "webpackageName" to be defined.')
   return {
     description: "A simple elementary component.",
+    runnables: [
+      {
+        "name": "SHOWROOM",
+        "path": "/SHOWROOM.html"
+      }
+    ],    
     slots: [
       { slotId: "inputText", type: "string", direction: ["input"], value: "this is a sample text" },
       { slotId: "outputText", type: "string", direction: ["output"] }
