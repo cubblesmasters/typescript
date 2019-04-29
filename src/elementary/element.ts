@@ -10,25 +10,28 @@ CubxComponent({
     outputText: 'outputText'
   },
   ready(): void {
+    this.initElementsReferences();
+    if (this.getInputText()) {
+      this.handleInputTextChange(this.getInputText());
+    }
+  },
+  initElementsReferences(): void {
     this.toUppercaseBtn = document.getElementById(this.ids.toUppercaseBtn);
     this.inputText = <HTMLTextAreaElement> document.getElementById(this.ids.inputText);
     this.outputText = <HTMLInputElement> document.getElementById(this.ids.outputText);
-    this.toUppercaseBtn.addEventListener('click', () => { this.updateOutputText() });
-    if (this.getInputText()) {
-      this.inputText.value = this.getInputText(); 
-      this.updateOutputText();
-    }
+    this.toUppercaseBtn.addEventListener('click', () => { this.updateOutputText(this.inputText.value) });
   },
   /**
    *  Observe the Cubbles-Component-Model: If value for slot 'inputText' has changed ...
    */
   modelInputTextChanged(newValue: string): void {
-    this.inputText.value = newValue;
-    this.updateOutputText();
+    this.handleInputTextChange(newValue);
   },
-
-  updateOutputText(): void {
-    let inputText:string = this.inputText.value;
+  handleInputTextChange(inputText: string): void {
+    this.inputText.value = inputText;
+    this.updateOutputText(inputText);
+  },
+  updateOutputText(inputText: string): void {
     let upperCaseText = inputText.toUpperCase();
     this.outputText.innerText = upperCaseText;
     this.setOutputText(upperCaseText); 
