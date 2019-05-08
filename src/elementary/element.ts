@@ -1,14 +1,20 @@
 import "./element.sss";
+import { CubxComponentPrototype } from "./cubx-component-defs";
 
-declare let CubxComponent: any;
+// Declare the CubxComponent to make it available
+declare function CubxComponent(prototype: CubxComponentPrototype): void;
 
+// Define the component respecting the CubxComponentPrototype interface
 CubxComponent({
-  is: '/* @echo elementName */',
+  is: "/* @echo elementName */",
   ids: {
-    inputText: 'inputText',
-    toUppercaseBtn: 'toUppercaseBtn',
-    outputText: 'outputText'
+    inputText: "inputText",
+    toUppercaseBtn: "toUppercaseBtn",
+    outputText: "outputText"
   },
+  toUppercaseBtn: HTMLInputElement,
+  inputText: HTMLTextAreaElement,
+  outputText: HTMLInputElement,
   ready(): void {
     this.initElementsReferences();
     if (this.getInputText()) {
@@ -16,10 +22,18 @@ CubxComponent({
     }
   },
   initElementsReferences(): void {
-    this.toUppercaseBtn = document.getElementById(this.ids.toUppercaseBtn);
-    this.inputText = <HTMLTextAreaElement> document.getElementById(this.ids.inputText);
-    this.outputText = <HTMLInputElement> document.getElementById(this.ids.outputText);
-    this.toUppercaseBtn.addEventListener('click', () => { this.updateOutputText(this.inputText.value) });
+    this.toUppercaseBtn = <HTMLInputElement>(
+      document.getElementById(this.ids.toUppercaseBtn)
+    );
+    this.inputText = <HTMLTextAreaElement>(
+      document.getElementById(this.ids.inputText)
+    );
+    this.outputText = <HTMLInputElement>(
+      document.getElementById(this.ids.outputText)
+    );
+    this.toUppercaseBtn.addEventListener("click", () => {
+      this.updateOutputText(this.inputText.value);
+    });
   },
   /**
    *  Observe the Cubbles-Component-Model: If value for slot 'inputText' has changed ...
@@ -34,6 +48,6 @@ CubxComponent({
   updateOutputText(inputText: string): void {
     let upperCaseText = inputText.toUpperCase();
     this.outputText.innerText = upperCaseText;
-    this.setOutputText(upperCaseText); 
+    this.setOutputText(upperCaseText);
   }
-});
+} as CubxComponentPrototype);

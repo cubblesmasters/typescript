@@ -63,11 +63,11 @@
     "run-func": "^1.0.2",
     "style-loader": "^0.21.0",
     "sugarss": "^2.0.0",
-    "ts-loader": "^5.4.4",
+    "ts-loader": "^5.4.5",
     "typescript": "^3.4.5",
     "webpack": "^4.12.0",
     "webpack-bundle-analyzer": "^3.0.2",
-    "webpack-cli": "^3.0.3",
+    "webpack-cli": "^3.3.2",
     "yo": "^2.0.3"
   },
   "repository": {

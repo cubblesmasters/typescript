@@ -59,6 +59,9 @@ const config = {
       }
     ]
   },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"]
+  },
   plugins: [
     new CopyWebpackPlugin([{ from: "**/*.md", to: distFolder }], {}),
     new HtmlWebpackPlugin({
