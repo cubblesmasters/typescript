@@ -28,11 +28,39 @@ npm init
 
 ## The boilerplate base sample
 
-If you check the `src` folder of this boilerplate, you will find a folder called `elementary` that contains one script:
+If you check the `src` folder of this boilerplate, you will find a folder called `elementary` that contains the following files:
 
+* **Manifest.elementary**: contains the definition of your elementary (Check [this](https://cubbles.gitbook.io/docs/terms-and-concepts/artifacts) for more information).
 * **element.ts**: contains the logic of a Cubbles elementary coded using typescript.
+* **element.html**: contains the view of the elementary.
+* **element.sss**: contains the style definition of the elementary.
+* **SHOWROOM.html**: a ready-to-run sample using the elementary.
+* **cubx-component-defs.ts**: contains the interface definition for the object that you should pass to the [CubxComponent](https://cubbles.gitbook.io/docs/runtime-extension-rte/user-guide/cubbles-js-api/inside-interaction#the-cubxcomponent-object) object.
+* **custom-d-ts**: declares a module to be able to import *.sss* style sheets in our typescript scripts.
+* **toUpperCase.ts**: contains a function to convert string to upperCase. This script is just for demonstration purposes. So that you know how to use external functions, modules, interfaces, etc., in the logic of your elementary.
 
 A demo of this component is available [online](https://cubbles.world/sandbox/cubbles-typescript-boilerplate@1.0.0-SNAPSHOT/cubbles-typescript-boilerplate-elementary/SHOWROOM.html).
+
+## Considerations regarding the element.ts script
+
+In the **element.ts** file the **CubxComponent** is declared as function, you should not remove that line to avoid TypeScript compilation errors. Also, we import the **CubxComponentPrototype** to assure that the object passed to the **CubxComponent** is as expected:
+
+```typescript
+import { CubxComponentPrototype } from "./cubx-component-defs";
+// Declare the CubxComponent to make it available
+declare function CubxComponent(prototype: CubxComponentPrototype): void;
+```
+
+Therefore, you should respect the **CubxComponentPrototype** interface. To aim that you can use the *as CubxComponentPrototype* expression when passing the object parameter to **CubxComponent**. This would allow you to respect the interface, but also to extend it according to your needs:
+
+```typescript
+// ...
+
+// Define the component respecting the CubxComponentPrototype interface
+CubxComponent({
+  is: ...
+} as CubxComponentPrototype)
+```
 
 ## Development scripts
 
